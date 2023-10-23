@@ -1,0 +1,61 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-person-heading" data-cy="PersonCreateUpdateHeading" jhiTranslate="spcpfasimpleApp2App.person.home.createOrEditLabel">
+        __jhiTransformTranslate__('spcpfasimpleApp2App.person.home.createOrEditLabel')
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="spcpfasimpleApp2App.person.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required"
+              >__jhiTransformTranslate__('entity.validation.required')</small
+            >
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="spcpfasimpleApp2App.person.surname" for="field_surname">Surname</label>
+          <input type="text" class="form-control" name="surname" id="field_surname" data-cy="surname" formControlName="surname" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" jhiTranslate="spcpfasimpleApp2App.person.gender" for="field_gender">Gender</label>
+          <select class="form-control" name="gender" formControlName="gender" id="field_gender" data-cy="gender">
+            <option [ngValue]="null">{{ 'spcpfasimpleApp2App.Gender.null' | translate }}</option>
+            <option *ngFor="let gender of genderValues" [value]="gender">{{ 'spcpfasimpleApp2App.Gender.' + gender | translate }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel"
+            >__jhiTransformTranslate__('entity.action.cancel')</span
+          >
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save"
+            >__jhiTransformTranslate__('entity.action.save')</span
+          >
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
