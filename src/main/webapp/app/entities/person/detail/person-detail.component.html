@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="person">
+      <h2 data-cy="personDetailsHeading">
+        <span jhiTranslate="spcpfasimpleApp2App.person.detail.title"
+          >__jhiTransformTranslate__('spcpfasimpleApp2App.person.detail.title')</span
+        >
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">__jhiTransformTranslate__('global.field.id')</span></dt>
+        <dd>
+          <span>{{ person.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="spcpfasimpleApp2App.person.name">__jhiTransformTranslate__('spcpfasimpleApp2App.person.name')</span></dt>
+        <dd>
+          <span>{{ person.name }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="spcpfasimpleApp2App.person.surname">__jhiTransformTranslate__('spcpfasimpleApp2App.person.surname')</span>
+        </dt>
+        <dd>
+          <span>{{ person.surname }}</span>
+        </dd>
+        <dt>
+          <span jhiTranslate="spcpfasimpleApp2App.person.gender">__jhiTransformTranslate__('spcpfasimpleApp2App.person.gender')</span>
+        </dt>
+        <dd>
+          <span jhiTranslate="{{ 'spcpfasimpleApp2App.Gender.' + person.gender }}">{{ person.gender }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"
+          >__jhiTransformTranslate__('entity.action.back')</span
+        >
+      </button>
+
+      <button type="button" [routerLink]="['/person', person.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"
+          >__jhiTransformTranslate__('entity.action.edit')</span
+        >
+      </button>
+    </div>
+  </div>
+</div>

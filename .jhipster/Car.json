@@ -1,0 +1,21 @@
+{
+  "applications": "*",
+  "changelogDate": "20231023152038",
+  "dto": "mapstruct",
+  "entityTableName": "car",
+  "fields": [
+    {
+      "fieldName": "model",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "color",
+      "fieldType": "String"
+    }
+  ],
+  "microserviceName": "person",
+  "name": "Car",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

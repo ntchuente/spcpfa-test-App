@@ -1,0 +1,118 @@
+<div>
+  <h2 id="page-heading" data-cy="PersonHeading">
+    <span jhiTranslate="spcpfasimpleApp2App.person.home.title">__jhiTransformTranslate__('spcpfasimpleApp2App.person.home.title')</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="spcpfasimpleApp2App.person.home.refreshListLabel"
+          >__jhiTransformTranslate__('spcpfasimpleApp2App.person.home.refreshListLabel')</span
+        >
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-person"
+        [routerLink]="['/person/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="spcpfasimpleApp2App.person.home.createLabel"
+          >__jhiTransformTranslate__('spcpfasimpleApp2App.person.home.createLabel')</span
+        >
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="people?.length === 0">
+    <span jhiTranslate="spcpfasimpleApp2App.person.home.notFound"
+      >__jhiTransformTranslate__('spcpfasimpleApp2App.person.home.notFound')</span
+    >
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="people && people.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">__jhiTransformTranslate__('global.field.id')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="name">
+            <div class="d-flex">
+              <span jhiTranslate="spcpfasimpleApp2App.person.name">__jhiTransformTranslate__('spcpfasimpleApp2App.person.name')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="surname">
+            <div class="d-flex">
+              <span jhiTranslate="spcpfasimpleApp2App.person.surname">__jhiTransformTranslate__('spcpfasimpleApp2App.person.surname')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="gender">
+            <div class="d-flex">
+              <span jhiTranslate="spcpfasimpleApp2App.person.gender">__jhiTransformTranslate__('spcpfasimpleApp2App.person.gender')</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let person of people; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/person', person.id, 'view']">{{ person.id }}</a>
+          </td>
+          <td>{{ person.name }}</td>
+          <td>{{ person.surname }}</td>
+          <td jhiTranslate="{{ 'spcpfasimpleApp2App.Gender.' + person.gender }}">{{ person.gender }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/person', person.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">__jhiTransformTranslate__('entity.action.view')</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/person', person.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">__jhiTransformTranslate__('entity.action.edit')</span>
+              </button>
+
+              <button type="submit" (click)="delete(person)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete"
+                  >__jhiTransformTranslate__('entity.action.delete')</span
+                >
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="people && people.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>
