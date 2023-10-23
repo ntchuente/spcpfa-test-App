@@ -1,0 +1,34 @@
+
+entity Person {
+	name String required
+    surname String
+    gender Gender
+}
+
+entity Car {
+	model String,
+    color String
+}
+enum Gender {
+MALE, FEMALE
+}
+relationship OneToMany{
+	Person{cars} to Car
+}
+
+// Set pagination options
+paginate Person with pagination
+dto * with mapstruct
+service all with serviceImpl
+microservice * with person
+//paginate JobHistory, Employee with infinite-scroll
+//paginate Job with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
